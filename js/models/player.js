@@ -11,25 +11,25 @@ class Player {
 
   move() {
     if (keyIsDown(LEFT_ARROW)) {
-      this.x -= MOVEMENT_SPEED;
+      this.x -= PLAYER_MOVEMENT_SPEED;
 
       if (this.x < -PLAYER_WIDTH) {
         this.resetPosition();
       }
     } else if (keyIsDown(RIGHT_ARROW)) {
-      this.x += MOVEMENT_SPEED;
+      this.x += PLAYER_MOVEMENT_SPEED;
       if (this.x > CANVAS_WIDTH) {
         this.resetPosition();
       }
     }
 
     if (keyIsDown(UP_ARROW)) {
-      this.y -= MOVEMENT_SPEED;
+      this.y -= PLAYER_MOVEMENT_SPEED;
       if (this.y < -PLAYER_HEIGHT) {
         this.resetPosition();
       }
     } else if (keyIsDown(DOWN_ARROW)) {
-      this.y += MOVEMENT_SPEED;
+      this.y += PLAYER_MOVEMENT_SPEED;
       if (this.y > CANVAS_HEIGHT) {
         this.resetPosition();
       }
