@@ -1,4 +1,4 @@
-class Sumo {
+class Barrel {
   constructor() {
     this.initialCoordinates = this.randomPosition();
     this.initialX = this.initialCoordinates.x;
@@ -6,35 +6,36 @@ class Sumo {
     this.x = this.initialX;
     this.y = this.initialY;
     this.movementSpeed =
-      Math.random() * SUMO_MAX_MOVEMENT_SPEED + SUMO_MIN_MOVEMENT_SPEED;
+      Math.random() * BARREL_MAX_MOVEMENT_SPEED + BARREL_MIN_MOVEMENT_SPEED;
+  }
+
+  preload() {
+    this.image = loadImage("assets/barrel.png");
   }
 
   draw() {
-    push();
-    fill("orange");
-    ellipse(this.x, this.y, 50, 50);
-    pop();
+    image(this.image, this.x, this.y, BARREL_WIDTH, BARREL_HEIGHT);
   }
 
   move() {
-    if (this.initialX === -SUMO_WIDTH) {
+    if (this.initialX === -BARREL_WIDTH) {
       this.x += this.movementSpeed;
       if (this.x > CANVAS_WIDTH) {
         this.resetPosition();
       }
     } else if (this.initialX === CANVAS_WIDTH) {
       this.x -= this.movementSpeed;
-      if (this.x < -SUMO_WIDTH) {
+      if (this.x < -BARREL_WIDTH) {
         this.resetPosition();
       }
-    } else if (this.initialY === -SUMO_HEIGHT) {
+    } else if (this.initialY === -BARREL_HEIGHT) {
       this.y += this.movementSpeed;
       if (this.y > CANVAS_HEIGHT) {
         this.resetPosition();
       }
     } else if (this.initialY === CANVAS_HEIGHT) {
       this.y -= this.movementSpeed;
-      if (this.y < -SUMO_HEIGHT) {
+      if (this.y < -BARREL_HEIGHT) {
         this.resetPosition();
       }
     }
@@ -44,8 +45,8 @@ class Sumo {
     let x = Math.floor(Math.random() * CANVAS_WIDTH);
     let y = Math.floor(Math.random() * CANVAS_HEIGHT);
 
-    let xValues = [-SUMO_WIDTH, CANVAS_WIDTH];
-    let yValues = [-SUMO_HEIGHT, CANVAS_HEIGHT];
+    let xValues = [-BARREL_WIDTH, CANVAS_WIDTH];
+    let yValues = [-BARREL_HEIGHT, CANVAS_HEIGHT];
 
     if (CANVAS_WIDTH - +x < CANVAS_HEIGHT - y) {
       x = xValues[Math.floor(Math.random() * xValues.length)];
@@ -55,11 +56,10 @@ class Sumo {
       x = xValues[Math.floor(Math.random() * xValues.length)];
     }
 
-    if (x === -SUMO_WIDTH && y === -SUMO_HEIGHT) {
-      y = SUMO_HEIGHT;
+    if (x === -BARREL_WIDTH && y === -BARREL_HEIGHT) {
+      y = BARREL_HEIGHT;
     }
 
-    console.log("x: ", x, " y: ", y);
     return { x, y };
   }
 
@@ -74,7 +74,24 @@ class Sumo {
 
   resetMovementSpeed() {
     this.movementSpeed =
-      Math.random() * SUMO_MAX_MOVEMENT_SPEED + SUMO_MIN_MOVEMENT_SPEED;
-    console.log("movementSpeed: ", this.movementSpeed);
+      Math.random() * BARREL_MAX_MOVEMENT_SPEED + BARREL_MIN_MOVEMENT_SPEED;
+  }
+
+  isColliding(player) {
+    if (
+      this.x + BARREL_WIDTH > player.x &&
+      this.x < player.x + PLAYER_WIDTH &&
+      this.y + BARREL_HEIGHT > player.y &&
+      this.y < player.y + PLAYER_HEIGHT
+    ) {
+      console.log("collision");
+    }
+
+    return (
+      this.x + BARREL_WIDTH > player.x &&
+      this.x < player.x + PLAYER_WIDTH &&
+      this.y + BARREL_HEIGHT > player.y &&
+      this.y < player.y + PLAYER_HEIGHT
+    );
   }
 }

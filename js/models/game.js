@@ -1,18 +1,21 @@
 class Game {
   constructor() {
     this.player = new Player();
-    this.sumos = [];
-    this.isSumosCreated = false;
+    this.barrels = this.createBarrels();
+  }
+
+  preload() {
+    this.player.preload();
+    this.barrels.forEach((barrel) => {
+      barrel.preload();
+    });
+    this.background = loadImage("assets/background.png");
   }
 
   play() {
-    background("aqua");
+    background(this.background);
     this.initializePlayer();
-    if (!this.isSumosCreated) {
-      this.createSumos();
-      this.isSumosCreated = true;
-    }
-    this.initializeSumos(this.sumos);
+    this.initializeBarrels(this.barrels);
   }
 
   initializePlayer() {
@@ -20,16 +23,19 @@ class Game {
     this.player.move();
   }
 
-  createSumos() {
-    for (let i = 0; i < SUMO_QUANTITY; i++) {
-      this.sumos.push(new Sumo());
+  createBarrels() {
+    let arr = [];
+    for (let i = 0; i < BARREL_QUANTITY; i++) {
+      arr.push(new Barrel());
     }
+    return arr;
   }
 
-  initializeSumos(sumos) {
-    sumos.forEach((sumo) => {
-      sumo.draw();
-      sumo.move();
+  initializeBarrels(barrels) {
+    barrels.forEach((barrel) => {
+      barrel.draw();
+      barrel.move();
+      barrel.isColliding(this.player);
     });
   }
 }
