@@ -1,6 +1,6 @@
 // canvas variables
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 600;
+const CANVAS_WIDTH = 800;
+const CANVAS_HEIGHT = 800;
 
 // key variables
 const ARROW_UP = 38;
@@ -13,13 +13,20 @@ const S = 83;
 const D = 68;
 
 // player variables
-const PLAYER_WIDTH = 60;
-const PLAYER_HEIGHT = 60;
+const PLAYER_WIDTH = 50;
+const PLAYER_HEIGHT = 50;
 const PLAYER_MOVEMENT_SPEED = 4.25;
 
 // barrel variables
-const BARREL_WIDTH = 50;
-const BARREL_HEIGHT = 50;
+const BARREL_WIDTH = 40;
+const BARREL_HEIGHT = 40;
+const BARREL_QUANTITY = 4;
 const BARREL_MAX_MOVEMENT_SPEED = 2;
 const BARREL_MIN_MOVEMENT_SPEED = 0.5;
-const BARREL_QUANTITY = 4;
+
+// food variables
+const FOOD_WIDTH = 40;
+const FOOD_HEIGHT = 40;
+const FOOD_QUANTITY = 4;
+const FOOD_MAX_MOVEMENT_SPEED = 1.5;
+const FOOD_MIN_MOVEMENT_SPEED = 0.5;

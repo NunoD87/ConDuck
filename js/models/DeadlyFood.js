@@ -1,4 +1,4 @@
-class UnhealthyFood extends Food {
+class DeadlyFood extends Food {
   constructor() {
     super();
   }

@@ -70,4 +70,9 @@ class Player {
       this.respawningTimer = 0;
     }
   }
+
+  die() {
+    this.resetPosition();
+    this.isRespawning = true;
+  }
 }

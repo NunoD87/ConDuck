@@ -5,8 +5,7 @@ class Barrel {
     this.initialY = this.initialCoordinates.y;
     this.x = this.initialX;
     this.y = this.initialY;
-    this.movementSpeed =
-      Math.random() * BARREL_MAX_MOVEMENT_SPEED + BARREL_MIN_MOVEMENT_SPEED;
+    this.movementSpeed = this.resetMovementSpeed();
   }
 
   preload() {
@@ -73,8 +72,9 @@ class Barrel {
   }
 
   resetMovementSpeed() {
-    this.movementSpeed =
-      Math.random() * BARREL_MAX_MOVEMENT_SPEED + BARREL_MIN_MOVEMENT_SPEED;
+    return (
+      Math.random() * BARREL_MAX_MOVEMENT_SPEED + BARREL_MIN_MOVEMENT_SPEED
+    );
   }
 
   isColliding(player) {
