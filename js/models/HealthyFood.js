@@ -3,12 +3,9 @@ class HealthyFood extends Food {
     super();
   }
 
-  isColliding(player) {
-    return (
-      this.x + FOOD_WIDTH > player.x &&
-      this.x < player.x + PLAYER_WIDTH &&
-      this.y + FOOD_HEIGHT > player.y &&
-      this.y < player.y + PLAYER_HEIGHT
-    );
+  preload() {
+    let images = ["assets/lettuce.png", "assets/rice.png", "assets/seeds.png"];
+
+    this.image = loadImage(images[Math.floor(Math.random() * images.length)]);
   }
 }

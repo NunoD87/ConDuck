@@ -16,6 +16,8 @@ const D = 68;
 const PLAYER_WIDTH = 50;
 const PLAYER_HEIGHT = 50;
 const PLAYER_MOVEMENT_SPEED = 4.25;
+const PLAYER_RESPAWN_TIME = 200;
+const PLAYER_LIVES = 3;
 
 // barrel variables
 const BARREL_WIDTH = 40;

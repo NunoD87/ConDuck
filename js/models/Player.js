@@ -2,7 +2,7 @@ class Player {
   constructor() {
     this.x = CANVAS_WIDTH / 2 - PLAYER_WIDTH / 2;
     this.y = CANVAS_HEIGHT / 2 - PLAYER_HEIGHT / 2;
-    this.lives = 3;
+    this.lives = PLAYER_LIVES;
     this.isRespawning = false;
     this.respawningTimer = 0;
   }
@@ -65,7 +65,7 @@ class Player {
 
     this.respawningTimer++;
 
-    if (this.respawningTimer === 50) {
+    if (this.respawningTimer === PLAYER_RESPAWN_TIME) {
       this.isRespawning = false;
       this.respawningTimer = 0;
     }

@@ -101,18 +101,17 @@ class Game {
       case "HealthyFood":
         newFood = new HealthyFood();
         this.foods.push(newFood);
-        newFood.preload("HealthyFood");
         break;
       case "UnhealthyFood":
         newFood = new UnhealthyFood();
         this.foods.push(newFood);
-        newFood.preload("UnhealthyFood");
         break;
       case "DeadlyFood":
         newFood = new DeadlyFood();
         this.foods.push(newFood);
-        newFood.preload("DeadlyFood");
         break;
     }
+
+    newFood.preload();
   }
 }

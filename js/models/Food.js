@@ -8,20 +8,6 @@ class Food {
     this.movementSpeed = this.resetMovementSpeed();
   }
 
-  preload(foodType) {
-    switch (foodType) {
-      case "HealthyFood":
-        this.image = loadImage("assets/lettuce.png");
-        break;
-      case "UnhealthyFood":
-        this.image = loadImage("assets/bread.png");
-        break;
-      case "DeadlyFood":
-        this.image = loadImage("assets/donut.png");
-        break;
-    }
-  }
-
   draw() {
     image(this.image, this.x, this.y, FOOD_WIDTH, FOOD_HEIGHT);
   }
@@ -47,6 +33,21 @@ class Food {
       if (this.y < -FOOD_HEIGHT) {
         this.resetPosition();
       }
+    }
+  }
+
+  isColliding(player) {
+    if (player.isRespawning) {
+      return false;
+    }
+
+    if (
+      this.x + FOOD_WIDTH > player.x &&
+      this.x < player.x + PLAYER_WIDTH &&
+      this.y + FOOD_HEIGHT > player.y &&
+      this.y < player.y + PLAYER_HEIGHT
+    ) {
+      return true;
     }
   }
 
