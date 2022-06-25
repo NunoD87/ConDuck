@@ -3,6 +3,7 @@ class Game {
     this.player = new Player();
     this.barrels = this.createBarrels();
     this.foods = this.createFoods();
+    this.isGameOver = false;
   }
 
   preload() {
@@ -17,10 +18,16 @@ class Game {
   }
 
   play() {
-    background(this.background);
-    this.initializePlayer();
-    this.initializeBarrels(this.barrels);
-    this.initializeFoods(this.foods);
+    if (!this.isGameOver) {
+      background(this.background);
+      this.initializePlayer();
+      this.initializeBarrels(this.barrels);
+      this.initializeFoods(this.foods);
+    } else {
+      background(150);
+      textAlign(CENTER);
+      text("GAME OVER", width / 2, height / 2);
+    }
   }
 
   initializePlayer() {
@@ -70,20 +77,23 @@ class Game {
       switch (food.constructor.name) {
         case "HealthyFood":
           if (food.isColliding(this.player)) {
-            //this.player.health += HEALTH_INCREASE;
+            this.player.score += FOOD_GRAMS;
             this.createNewFood(food);
           }
           break;
         case "UnhealthyFood":
           if (food.isColliding(this.player)) {
-            //this.player.health -= HEALTH_DECREASE;
+            this.player.score -= FOOD_GRAMS;
             this.createNewFood(food);
           }
           break;
         case "DeadlyFood":
           if (food.isColliding(this.player)) {
-            this.player.die();
-            this.createNewFood(food);
+            if (this.player.die()) {
+              this.isGameOver = true;
+            } else {
+              this.createNewFood(food);
+            }
           }
           break;
       }

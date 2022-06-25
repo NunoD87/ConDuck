@@ -5,6 +5,7 @@ class Player {
     this.lives = PLAYER_LIVES;
     this.isRespawning = false;
     this.respawningTimer = 0;
+    this.score = 1000;
   }
 
   preload() {
@@ -15,6 +16,18 @@ class Player {
     image(this.image, this.x, this.y, PLAYER_WIDTH, PLAYER_HEIGHT);
     if (this.isRespawning) {
       this.respawning();
+    }
+    PLAYER_SCORE_SPAN.innerText = this.score;
+    switch (this.lives) {
+      case 3:
+        PLAYER_LIVES_SPAN.innerText = "❤️❤️❤️";
+        break;
+      case 2:
+        PLAYER_LIVES_SPAN.innerText = "❤️❤️";
+        break;
+      case 1:
+        PLAYER_LIVES_SPAN.innerText = "❤️";
+        break;
     }
   }
 
@@ -72,7 +85,15 @@ class Player {
   }
 
   die() {
+    this.lives--;
+
+    if (this.lives === 0) {
+      PLAYER_LIVES_SPAN.innerText = "";
+      return true;
+    }
+
     this.resetPosition();
     this.isRespawning = true;
+    return false;
   }
 }

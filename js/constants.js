@@ -16,8 +16,10 @@ const D = 68;
 const PLAYER_WIDTH = 50;
 const PLAYER_HEIGHT = 50;
 const PLAYER_MOVEMENT_SPEED = 4.25;
-const PLAYER_RESPAWN_TIME = 200;
+const PLAYER_RESPAWN_TIME = 50;
 const PLAYER_LIVES = 3;
+const PLAYER_SCORE_SPAN = document.querySelector(".score");
+const PLAYER_LIVES_SPAN = document.querySelector(".lives");
 
 // barrel variables
 const BARREL_WIDTH = 40;
@@ -32,3 +34,4 @@ const FOOD_HEIGHT = 40;
 const FOOD_QUANTITY = 4;
 const FOOD_MAX_MOVEMENT_SPEED = 1.5;
 const FOOD_MIN_MOVEMENT_SPEED = 0.5;
+const FOOD_GRAMS = 10;
