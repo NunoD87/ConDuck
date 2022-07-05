@@ -6,6 +6,9 @@ class Player {
     this.isRespawning = false;
     this.respawningTimer = 0;
     this.score = 1000;
+    this.isBouncing = false;
+    this.bouncingDirection = false;
+    this.bouncingTimer = 0;
   }
 
   preload() {
@@ -81,6 +84,63 @@ class Player {
     if (this.respawningTimer === PLAYER_RESPAWN_TIME) {
       this.isRespawning = false;
       this.respawningTimer = 0;
+    }
+  }
+
+  bounce() {
+    if (!this.bouncingDirection) {
+      this.bouncingDirection = Math.round(Math.random() * 8 + 1);
+    }
+
+    console.log(this.bouncingDirection);
+    this.isBouncing = true;
+    this.bouncingTimer++;
+
+    switch (this.bouncingDirection) {
+      case 1:
+        this.y -= PLAYER_BOUNCE_SPEED;
+        break;
+      case 2:
+        this.y += PLAYER_BOUNCE_SPEED;
+        break;
+      case 3:
+        this.x -= PLAYER_BOUNCE_SPEED;
+        break;
+      case 4:
+        this.x += PLAYER_BOUNCE_SPEED;
+        break;
+      case 5:
+        this.y -= PLAYER_BOUNCE_SPEED;
+        this.x -= PLAYER_BOUNCE_SPEED;
+        break;
+      case 6:
+        this.y -= PLAYER_BOUNCE_SPEED;
+        this.x += PLAYER_BOUNCE_SPEED;
+        break;
+      case 7:
+        this.y += PLAYER_BOUNCE_SPEED;
+        this.x -= PLAYER_BOUNCE_SPEED;
+        break;
+      case 8:
+        this.y += PLAYER_BOUNCE_SPEED;
+        this.x += PLAYER_BOUNCE_SPEED;
+        break;
+    }
+
+    if (
+      this.x < -PLAYER_WIDTH ||
+      this.x > CANVAS_WIDTH ||
+      this.y < -PLAYER_HEIGHT ||
+      this.y > CANVAS_HEIGHT
+    ) {
+      this.resetPosition();
+      this.isRespawning = true;
+    }
+
+    if (this.bouncingTimer === PLAYER_BOUNCE_TIME) {
+      this.isBouncing = false;
+      this.bouncingDirection = false;
+      this.bouncingTimer = 0;
     }
   }
 

@@ -3,10 +3,11 @@ class Game {
     this.player = new Player();
     this.barrels = this.createBarrels();
     this.foods = this.createFoods();
-    this.isGameOver = false;
+    this.screen = "start";
   }
 
   preload() {
+    this.startBackground = loadImage("assets/giantDuck.jpg");
     this.background = loadImage("assets/background.png");
     this.player.preload();
     this.barrels.forEach((barrel) => {
@@ -18,22 +19,59 @@ class Game {
   }
 
   play() {
-    if (!this.isGameOver) {
-      background(this.background);
-      this.initializePlayer();
-      this.initializeBarrels(this.barrels);
-      this.initializeFoods(this.foods);
-    } else {
-      background(150);
-      textAlign(CENTER);
-      text("GAME OVER", width / 2, height / 2);
+    switch (this.screen) {
+      case "start":
+        this.startScreen();
+        break;
+      case "game":
+        this.game();
+        break;
+      case "gameOver":
+        this.gameOver();
+        break;
     }
   }
+
+  // * Screens
+
+  startScreen() {
+    background(this.startBackground);
+    textAlign(CENTER);
+    text("Press any key to start", width / 2, height / 2);
+    if (this.keyPressed()) {
+      this.screen = "game";
+    }
+  }
+
+  game() {
+    background(this.background);
+    this.initializePlayer();
+    this.initializeBarrels(this.barrels);
+    this.initializeFoods(this.foods);
+  }
+
+  gameOver() {
+    background(150);
+    textAlign(CENTER);
+    text("GAME OVER", width / 2, height / 2);
+    text("Press any key to restart", width / 2, height / 2 + 50);
+    if (this.keyPressed()) {
+      this.screen = "start";
+    }
+  }
+
+  // * Player
 
   initializePlayer() {
     this.player.draw();
     this.player.move();
+
+    if (this.player.isBouncing) {
+      this.player.bounce();
+    }
   }
+
+  // * Barrels
 
   createBarrels() {
     let arr = [];
@@ -47,9 +85,14 @@ class Game {
     barrels.forEach((barrel) => {
       barrel.draw();
       barrel.move();
-      barrel.isColliding(this.player);
+
+      if (barrel.isColliding(this.player)) {
+        this.player.bounce();
+      }
     });
   }
+
+  // * Food
 
   createFoods() {
     let arr = [];
@@ -90,7 +133,7 @@ class Game {
         case "DeadlyFood":
           if (food.isColliding(this.player)) {
             if (this.player.die()) {
-              this.isGameOver = true;
+              this.screen = "gameOver";
             } else {
               this.createNewFood(food);
             }
@@ -123,5 +166,9 @@ class Game {
     }
 
     newFood.preload();
+  }
+
+  keyPressed() {
+    return keyCode === ENTER;
   }
 }
