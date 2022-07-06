@@ -10,6 +10,6 @@ class UnhealthyFood extends Food {
       "assets/chips.png",
     ];
 
-    this.image = loadImage(images[Math.floor(Math.random() * images.length)]);
+    this.image = loadImage(images[randomN(images.length)]);
   }
 }

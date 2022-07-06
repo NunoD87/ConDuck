@@ -3,12 +3,19 @@ class Game {
     this.player = new Player();
     this.barrels = this.createBarrels();
     this.foods = this.createFoods();
-    this.screen = "start";
+    this.screens = ["start", "tutorial", "game", "gameOver"];
+    this.screen = this.screens[0];
   }
 
   preload() {
     this.startBackground = loadImage("assets/giantDuck.jpg");
     this.background = loadImage("assets/background.png");
+    this.tutorialScreen = loadImage("assets/tutorial.png");
+    this.gameOverScreen = loadImage("assets/gameOverScreen.png");
+    this.preloadObjects();
+  }
+
+  preloadObjects() {
     this.player.preload();
     this.barrels.forEach((barrel) => {
       barrel.preload();
@@ -23,6 +30,9 @@ class Game {
       case "start":
         this.startScreen();
         break;
+      case "tutorial":
+        this.tutorial();
+        break;
       case "game":
         this.game();
         break;
@@ -36,10 +46,15 @@ class Game {
 
   startScreen() {
     background(this.startBackground);
-    textAlign(CENTER);
-    text("Press any key to start", width / 2, height / 2);
-    if (this.keyPressed()) {
-      this.screen = "game";
+    if (key === " ") {
+      this.screen = this.screens[1];
+    }
+  }
+
+  tutorial() {
+    background(this.tutorialScreen);
+    if (key === "Enter") {
+      this.screen = this.screens[2];
     }
   }
 
@@ -51,12 +66,10 @@ class Game {
   }
 
   gameOver() {
-    background(150);
-    textAlign(CENTER);
-    text("GAME OVER", width / 2, height / 2);
-    text("Press any key to restart", width / 2, height / 2 + 50);
-    if (this.keyPressed()) {
-      this.screen = "start";
+    background(this.gameOverScreen);
+    if (key === "Enter") {
+      this.screen = this.screens[0];
+      this.restart();
     }
   }
 
@@ -133,7 +146,7 @@ class Game {
         case "DeadlyFood":
           if (food.isColliding(this.player)) {
             if (this.player.die()) {
-              this.screen = "gameOver";
+              this.screen = this.screens[3];
             } else {
               this.createNewFood(food);
             }
@@ -168,7 +181,10 @@ class Game {
     newFood.preload();
   }
 
-  keyPressed() {
-    return keyCode === ENTER;
+  restart() {
+    this.player = new Player();
+    this.barrels = this.createBarrels();
+    this.foods = this.createFoods();
+    this.preloadObjects();
   }
 }

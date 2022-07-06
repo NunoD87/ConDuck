@@ -6,6 +6,6 @@ class HealthyFood extends Food {
   preload() {
     let images = ["assets/lettuce.png", "assets/rice.png", "assets/seeds.png"];
 
-    this.image = loadImage(images[Math.floor(Math.random() * images.length)]);
+    this.image = loadImage(images[randomN(images.length)]);
   }
 }

@@ -41,18 +41,16 @@ class Barrel {
   }
 
   randomPosition() {
-    let x = Math.floor(Math.random() * CANVAS_WIDTH);
-    let y = Math.floor(Math.random() * CANVAS_HEIGHT);
+    let x = randomN(CANVAS_WIDTH);
+    let y = randomN(CANVAS_HEIGHT);
 
     let xValues = [-BARREL_WIDTH, CANVAS_WIDTH];
     let yValues = [-BARREL_HEIGHT, CANVAS_HEIGHT];
 
-    if (CANVAS_WIDTH - +x < CANVAS_HEIGHT - y) {
-      x = xValues[Math.floor(Math.random() * xValues.length)];
-    } else if (CANVAS_WIDTH - x > CANVAS_HEIGHT - y) {
-      y = yValues[Math.floor(Math.random() * yValues.length)];
+    if (CANVAS_WIDTH - x > CANVAS_HEIGHT - y) {
+      y = yValues[randomN(yValues.length)];
     } else {
-      x = xValues[Math.floor(Math.random() * xValues.length)];
+      x = xValues[randomN(xValues.length)];
     }
 
     if (x === -BARREL_WIDTH && y === -BARREL_HEIGHT) {
@@ -78,15 +76,6 @@ class Barrel {
   }
 
   isColliding(player) {
-    if (
-      this.x + BARREL_WIDTH > player.x &&
-      this.x < player.x + PLAYER_WIDTH &&
-      this.y + BARREL_HEIGHT > player.y &&
-      this.y < player.y + PLAYER_HEIGHT
-    ) {
-      console.log("collision");
-    }
-
     return (
       this.x + BARREL_WIDTH > player.x &&
       this.x < player.x + PLAYER_WIDTH &&

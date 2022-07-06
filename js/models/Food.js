@@ -52,18 +52,16 @@ class Food {
   }
 
   randomPosition() {
-    let x = Math.floor(Math.random() * CANVAS_WIDTH);
-    let y = Math.floor(Math.random() * CANVAS_HEIGHT);
+    let x = randomN(CANVAS_WIDTH);
+    let y = randomN(CANVAS_HEIGHT);
 
     let xValues = [-(FOOD_WIDTH * 4), CANVAS_WIDTH + FOOD_WIDTH * 3];
     let yValues = [-(FOOD_HEIGHT * 4), CANVAS_HEIGHT + FOOD_HEIGHT * 3];
 
-    if (CANVAS_WIDTH - +x < CANVAS_HEIGHT - y) {
-      x = xValues[Math.floor(Math.random() * xValues.length)];
-    } else if (CANVAS_WIDTH - x > CANVAS_HEIGHT - y) {
-      y = yValues[Math.floor(Math.random() * yValues.length)];
+    if (CANVAS_WIDTH - x > CANVAS_HEIGHT - y) {
+      y = yValues[randomN(yValues.length)];
     } else {
-      x = xValues[Math.floor(Math.random() * xValues.length)];
+      x = xValues[randomN(xValues.length)];
     }
 
     if (x === -FOOD_WIDTH && y === -FOOD_HEIGHT) {

@@ -133,6 +133,9 @@ class Player {
       this.y < -PLAYER_HEIGHT ||
       this.y > CANVAS_HEIGHT
     ) {
+      this.isBouncing = false;
+      this.bouncingDirection = false;
+      this.bouncingTimer = 0;
       this.resetPosition();
       this.isRespawning = true;
     }
