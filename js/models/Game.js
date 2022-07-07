@@ -85,6 +85,8 @@ class Game {
 
   game() {
     background(this.background);
+    this.sounds.menu.stop();
+    this.sounds.game.loop();
     this.initializePlayer();
     this.initializeBarrels(this.barrels);
     this.initializeFoods(this.foods);
@@ -92,6 +94,8 @@ class Game {
 
   gameOver() {
     background(this.gameOverScreen);
+    this.sounds.game.stop();
+    this.sounds.gameOver.play();
     if (key === "Enter") {
       this.screen = this.screens[0];
       this.restart();
