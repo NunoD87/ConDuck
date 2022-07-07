@@ -3,6 +3,5 @@ function randomN(max) {
 }
 
 function getPercentage(weight) {
-  console.log(`${weight % 100}`);
   return +`${weight % 100}`;
 }

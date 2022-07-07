@@ -42,6 +42,7 @@ class Game {
   }
 
   play() {
+    this.setVolumes();
     switch (this.screen) {
       case "start":
         this.startScreen();
@@ -70,7 +71,16 @@ class Game {
 
   startScreen() {
     background(this.startBackground);
-    this.playSound(this.sounds.menu, false);
+
+    if (!this.sounds.menu.isPlaying()) {
+      this.sounds.game.stop();
+      this.isSoundPlaying = false;
+    }
+
+    if (!this.isSoundPlaying) {
+      this.sounds.menu.play();
+      this.isSoundPlaying = true;
+    }
     if (key === " ") {
       this.screen = this.screens[1];
     }
@@ -86,8 +96,16 @@ class Game {
 
   game() {
     background(this.background);
-    this.stopSound(this.sounds.menu);
-    this.playSound(this.sounds.game, true);
+    if (!this.sounds.game.isPlaying()) {
+      this.sounds.menu.stop();
+      this.isSoundPlaying = false;
+    }
+
+    if (!this.isSoundPlaying) {
+      this.sounds.game.loop();
+      this.isSoundPlaying = true;
+    }
+
     this.initializePlayer();
     this.initializeBarrels(this.barrels);
     this.initializeFoods(this.foods);
@@ -95,8 +113,15 @@ class Game {
 
   gameOver() {
     background(this.gameOverScreen);
-    this.stopSound(this.sounds.game);
-    this.playSound(this.sounds.gameOver, false);
+    if (!this.sounds.gameOver.isPlaying()) {
+      this.sounds.game.stop();
+      this.isSoundPlaying = false;
+    }
+
+    if (!this.isSoundPlaying) {
+      this.sounds.gameOver.play();
+      this.isSoundPlaying = true;
+    }
     if (key === "Enter") {
       this.screen = this.screens[0];
       this.restart();
@@ -220,23 +245,11 @@ class Game {
     newFood.preload();
   }
 
-  playSound(sound, loop) {
-    console.log("here");
-    if (!this.isSoundPlaying) {
-      if (loop) {
-        sound.loop();
-        this.isSoundPlaying = true;
-      } else {
-        sound.play();
-        this.isSoundPlaying = true;
-      }
-    }
-  }
-
-  stopSound(sound) {
-    if (this.isSoundPlaying) {
-      sound.stop();
-    }
+  setVolumes() {
+    this.sounds.menu.setVolume(0.1);
+    this.sounds.game.setVolume(0.1);
+    this.sounds.gameOver.setVolume(0.1);
+    this.sounds.win.setVolume(0.1);
   }
 
   restart() {
