@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+
+:root {
+    font-family: 'JetBrains Mono', monospace;
+    background-color: #1e2227;
+    color: #f0f8ff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    width: 100%;
+}
+
+div.game-info {
+    display: flex;
+    justify-content: space-between;
+    max-height: 100px;
+}
+
+progress {
+    color: #f17234;
+    border-radius: 5px;
+    border: 1px solid #f0f8ff;
+}
+
+progress::-moz-progress-bar { background: #f17234; }
+progress::-webkit-progress-value { background: #f17234; }
+
+div.vh {
+    visibility: hidden;
+}

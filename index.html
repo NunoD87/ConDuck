@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ConDuck</title>
+    <link rel="stylesheet" href="./css/styles.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.1/p5.min.js"></script>
+    <script src="/js/p5.sound.js"></script>
+  </head>
+  <body>
+    <main>
+      <div id="canvasDiv">
+        <div class="vh game-info">
+          <p>Lives <span class="lives"></span></p>
+
+          <p>
+            <progress class="weight-bar" value="70" max="100"></progress>
+            <span style="width: 100px"></span>
+            <span class="score"></span> g
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <!-- * Imports * -->
+    <script src="./js/constants.js"></script>
+    <script src="./js/utils.js"></script>
+    <script src="./js/models/Player.js"></script>
+    <script src="./js/models/Food.js"></script>
+    <script src="./js/models/HealthyFood.js"></script>
+    <script src="./js/models/UnhealthyFood.js"></script>
+    <script src="./js/models/DeadlyFood.js"></script>
+    <script src="./js/models/Barrel.js"></script>
+    <script src="./js/models/Game.js"></script>
+    <script src="./js/main.js"></script>
+  </body>
+</html>
