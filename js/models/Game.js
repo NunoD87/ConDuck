@@ -12,6 +12,7 @@ class Game {
       gameOver: "assets/gameOverSound.mp3",
       win: "assets/winSound.mp3",
     };
+    this.isSoundPlaying = false;
   }
 
   preload() {
@@ -69,7 +70,7 @@ class Game {
 
   startScreen() {
     background(this.startBackground);
-    this.sounds.menu.play();
+    this.playSound(this.sounds.menu, false);
     if (key === " ") {
       this.screen = this.screens[1];
     }
@@ -85,8 +86,8 @@ class Game {
 
   game() {
     background(this.background);
-    this.sounds.menu.stop();
-    this.sounds.game.loop();
+    this.stopSound(this.sounds.menu);
+    this.playSound(this.sounds.game, true);
     this.initializePlayer();
     this.initializeBarrels(this.barrels);
     this.initializeFoods(this.foods);
@@ -94,8 +95,8 @@ class Game {
 
   gameOver() {
     background(this.gameOverScreen);
-    this.sounds.game.stop();
-    this.sounds.gameOver.play();
+    this.stopSound(this.sounds.game);
+    this.playSound(this.sounds.gameOver, false);
     if (key === "Enter") {
       this.screen = this.screens[0];
       this.restart();
@@ -217,6 +218,25 @@ class Game {
     }
 
     newFood.preload();
+  }
+
+  playSound(sound, loop) {
+    console.log("here");
+    if (!this.isSoundPlaying) {
+      if (loop) {
+        sound.loop();
+        this.isSoundPlaying = true;
+      } else {
+        sound.play();
+        this.isSoundPlaying = true;
+      }
+    }
+  }
+
+  stopSound(sound) {
+    if (this.isSoundPlaying) {
+      sound.stop();
+    }
   }
 
   restart() {
