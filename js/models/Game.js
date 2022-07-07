@@ -20,6 +20,7 @@ class Game {
     this.background = loadImage("assets/background.png");
     this.tutorialScreen = loadImage("assets/tutorial.png");
     this.gameOverScreen = loadImage("assets/gameOverScreen.png");
+    this.winScreen = loadImage("assets/winScreen.png");
     this.preloadSounds();
     this.preloadObjects();
   }
@@ -64,6 +65,12 @@ class Game {
           GAME_INFO_DIV.classList.toggle("vh");
         }
         break;
+      case "gameWin":
+        this.gameWin();
+        if (this.gameInfo) {
+          this.gameInfo = false;
+          GAME_INFO_DIV.classList.toggle("vh");
+        }
     }
   }
 
@@ -120,6 +127,23 @@ class Game {
 
     if (!this.isSoundPlaying) {
       this.sounds.gameOver.play();
+      this.isSoundPlaying = true;
+    }
+    if (key === "Enter") {
+      this.screen = this.screens[0];
+      this.restart();
+    }
+  }
+
+  gameWin() {
+    background(this.winScreen);
+    if (!this.sounds.win.isPlaying()) {
+      this.sounds.game.stop();
+      this.isSoundPlaying = false;
+    }
+
+    if (!this.isSoundPlaying) {
+      this.sounds.win.play();
       this.isSoundPlaying = true;
     }
     if (key === "Enter") {
@@ -191,6 +215,9 @@ class Game {
         case "HealthyFood":
           if (food.isColliding(this.player)) {
             this.player.weight += FOOD_GRAMS;
+            if (this.player.weight === 2000) {
+              this.screen = this.screens[3];
+            }
             this.createNewFood(food);
           }
           break;
