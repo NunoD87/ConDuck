@@ -19,15 +19,21 @@ main {
     width: 100%;
 }
 
-div.sidePanel {
-    background-image: url('../assets/ducksPanel.jpg');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    width: 15%;
-    height: 100%;
+div.game-info {
+    display: flex;
+    justify-content: space-between;
+    max-height: 100px;
 }
 
-.p5Canvas {
-    width: auto !important;
+progress {
+    color: #f17234;
+    border-radius: 5px;
+    border: 1px solid #f0f8ff;
+}
+
+progress::-moz-progress-bar { background: #f17234; }
+progress::-webkit-progress-value { background: #f17234; }
+
+div.vh {
+    visibility: hidden;
 }

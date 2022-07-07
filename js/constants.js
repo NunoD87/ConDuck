@@ -12,6 +12,9 @@ const A = 65;
 const S = 83;
 const D = 68;
 
+// * Game variables
+const GAME_INFO_DIV = document.querySelector(".game-info");
+
 // * Player variables
 
 // Player size
@@ -28,7 +31,8 @@ const PLAYER_BOUNCE_TIME = 30;
 // Player other variables
 const PLAYER_RESPAWN_TIME = 50;
 const PLAYER_LIVES = 3;
-const PLAYER_SCORE_SPAN = document.querySelector(".score");
+const PLAYER_WEIGHT_SPAN = document.querySelector(".score");
+const PLAYER_WEIGHT_BAR = document.querySelector(".weight-bar");
 const PLAYER_LIVES_SPAN = document.querySelector(".lives");
 
 // * Barrel variables

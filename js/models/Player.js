@@ -5,7 +5,8 @@ class Player {
     this.lives = PLAYER_LIVES;
     this.isRespawning = false;
     this.respawningTimer = 0;
-    this.score = 1000;
+    this.weight = 1000;
+    this.hundredLevel;
     this.isBouncing = false;
     this.bouncingDirection = false;
     this.bouncingTimer = 0;
@@ -20,7 +21,8 @@ class Player {
     if (this.isRespawning) {
       this.respawning();
     }
-    PLAYER_SCORE_SPAN.innerText = this.score;
+    PLAYER_WEIGHT_SPAN.innerText = this.weight;
+    PLAYER_WEIGHT_BAR.value = getPercentage(this.weight);
     switch (this.lives) {
       case 3:
         PLAYER_LIVES_SPAN.innerText = "❤️❤️❤️";

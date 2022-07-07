@@ -3,8 +3,15 @@ class Game {
     this.player = new Player();
     this.barrels = this.createBarrels();
     this.foods = this.createFoods();
-    this.screens = ["start", "tutorial", "game", "gameOver"];
+    this.screens = ["start", "tutorial", "game", "gameWin", "gameOver"];
     this.screen = this.screens[0];
+    this.gameInfo = false;
+    this.sounds = {
+      menu: "assets/menuSound.mp3",
+      game: "assets/gameSound.mp3",
+      gameOver: "assets/gameOverSound.mp3",
+      win: "assets/winSound.mp3",
+    };
   }
 
   preload() {
@@ -12,7 +19,15 @@ class Game {
     this.background = loadImage("assets/background.png");
     this.tutorialScreen = loadImage("assets/tutorial.png");
     this.gameOverScreen = loadImage("assets/gameOverScreen.png");
+    this.preloadSounds();
     this.preloadObjects();
+  }
+
+  preloadSounds() {
+    this.sounds.menu = loadSound(this.sounds.menu);
+    this.sounds.game = loadSound(this.sounds.game);
+    this.sounds.gameOver = loadSound(this.sounds.gameOver);
+    this.sounds.win = loadSound(this.sounds.win);
   }
 
   preloadObjects() {
@@ -35,9 +50,17 @@ class Game {
         break;
       case "game":
         this.game();
+        if (!this.gameInfo) {
+          this.gameInfo = true;
+          GAME_INFO_DIV.classList.toggle("vh");
+        }
         break;
       case "gameOver":
         this.gameOver();
+        if (this.gameInfo) {
+          this.gameInfo = false;
+          GAME_INFO_DIV.classList.toggle("vh");
+        }
         break;
     }
   }
@@ -46,12 +69,14 @@ class Game {
 
   startScreen() {
     background(this.startBackground);
+    this.sounds.menu.play();
     if (key === " ") {
       this.screen = this.screens[1];
     }
   }
 
   tutorial() {
+    background(this.background);
     background(this.tutorialScreen);
     if (key === "Enter") {
       this.screen = this.screens[2];
@@ -129,24 +154,33 @@ class Game {
     foods.forEach((food) => {
       food.draw();
       food.move();
+      let hundredLevel = Math.floor(this.player.weight / 100);
+      this.player.hundredLevel = hundredLevel;
 
       switch (food.constructor.name) {
         case "HealthyFood":
           if (food.isColliding(this.player)) {
-            this.player.score += FOOD_GRAMS;
+            this.player.weight += FOOD_GRAMS;
             this.createNewFood(food);
           }
           break;
         case "UnhealthyFood":
           if (food.isColliding(this.player)) {
-            this.player.score -= FOOD_GRAMS;
+            this.player.weight -= FOOD_GRAMS;
+            hundredLevel = this.player.weight / 100;
+            if (hundredLevel < this.player.hundredLevel) {
+              this.player.hundredLevel = hundredLevel;
+              if (this.player.die()) {
+                this.screen = this.screens[4];
+              }
+            }
             this.createNewFood(food);
           }
           break;
         case "DeadlyFood":
           if (food.isColliding(this.player)) {
             if (this.player.die()) {
-              this.screen = this.screens[3];
+              this.screen = this.screens[4];
             } else {
               this.createNewFood(food);
             }

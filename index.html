@@ -11,13 +11,20 @@
   </head>
   <body>
     <main>
-      <!-- <div class="sidePanel"></div> -->
       <div id="canvasDiv">
-        <p><span class="score"></span> g</p>
-        <p>Lives <span class="lives"></span></p>
+        <div class="vh game-info">
+          <p>Lives <span class="lives"></span></p>
+
+          <p>
+            <progress class="weight-bar" value="70" max="100"></progress>
+            <span style="width: 100px"></span>
+            <span class="score"></span> g
+          </p>
+        </div>
       </div>
-      <!-- <div class="sidePanel"></div> -->
     </main>
+
+    <!-- * Imports * -->
     <script src="./js/constants.js"></script>
     <script src="./js/utils.js"></script>
     <script src="./js/models/Player.js"></script>
